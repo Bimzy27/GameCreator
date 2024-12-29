@@ -13,4 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             page!.style.display = 'block';
         });
     });
+
+    pages.createLink!.style.display = 'block';
 });
