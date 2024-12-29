@@ -1,0 +1,19 @@
+{
+  "name": "GameCreator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && cpx \"src/**/*.html\" dist/ && cpx \"src/**/*.css\" dist/",
+    "debug": "tsc && cpx \"src/**/*.html\" dist/ && cpx \"src/**/*.css\" dist/ && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "Branden Immerzeel",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "cpx": "^1.5.0",
+    "prettier": "3.4.2"
+  }
+}
