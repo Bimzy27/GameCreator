@@ -1,5 +1,5 @@
 import { Scene } from "./scene.js";
-import { ServiceFactory } from "./serviceFactory.js";
+import { ServiceFactory } from "./services/serviceFactory.js";
 
 export class GameEngine {
     private static instance: GameEngine;
@@ -19,6 +19,10 @@ export class GameEngine {
             GameEngine.instance = new GameEngine();
         }
         return GameEngine.instance;
+    }
+
+    public static get ActiveScene(): Scene | null {
+        return GameEngine.getInstance().activeScene;
     }
 
     public startGame(scene: Scene): void {

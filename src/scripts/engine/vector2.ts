@@ -29,6 +29,9 @@ export class Vector2 {
 
     normalize(): Vector2 {
         const len = this.length();
+        if (len === 0) {
+            return new Vector2(0, 0);
+        }
         return new Vector2(this.x / len, this.y / len);
     }
 }

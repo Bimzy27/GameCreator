@@ -10,11 +10,9 @@ export class InputService {
         
         window.addEventListener('keydown', (e) => {
             this.keys.set(e.key, true);
-            console.log(e.key, " down");
         });
         window.addEventListener('keyup', (e) => {
             this.keys.set(e.key, false);
-            console.log(e.key, " up");
         });
         window.addEventListener('mousedown', (e) => this.mouseButtons.set(e.button, true));
         window.addEventListener('mouseup', (e) => this.mouseButtons.set(e.button, false));
@@ -25,7 +23,6 @@ export class InputService {
     }
     
     public isKeyDown(key: string): boolean {
-        console.log(key, ": ", this.keys.get(key) || false); 
         return this.keys.get(key) || false;
     }
     
