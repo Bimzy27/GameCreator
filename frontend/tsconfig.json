@@ -9,8 +9,7 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "src",
-      "outDir": "dist",
+      "outDir": "../backend/dist",
     },
-    "include": ["src/**/*"],
-    "exclude": ["dist"]
+    "exclude": ["../backend/dist"]
   }

@@ -19,8 +19,4 @@ export class SceneData {
     public get Size(): Vector2 {
         return this.size;
     }
-
-    public toJsonObject(): string {
-        return JSON.stringify(this);
-    }
 }

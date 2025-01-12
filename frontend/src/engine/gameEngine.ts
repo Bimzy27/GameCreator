@@ -49,6 +49,11 @@ export class GameEngine {
         this.gameRunning = false;
     }
 
+    public resetGame(): void {
+        this.activeScene = null;
+        this.stopGame();
+    }
+
     public resumeGame(): void {
         if (this.gameRunning) {
             console.log('Game already running');

@@ -39,8 +39,5 @@ export class GameObject {
             movement = movement.multiply(speed * deltaTime * 4);
             this.data.Transform.translate(movement);
         }
-        else {
-            this.data.Transform.translate(new Vector2(speed * deltaTime, 0));
-        }
     }
 }
