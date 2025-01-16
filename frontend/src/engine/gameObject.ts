@@ -7,8 +7,8 @@ import { GameObjectData } from "./gameObjectData.js";
 export class GameObject {
     private data: GameObjectData;
     
-    constructor(name: string, transform: Transform) {
-        this.data = new GameObjectData(name, transform);
+    constructor(data: GameObjectData) {
+        this.data = data;
     }
 
     public get Data(): GameObjectData {

@@ -2,7 +2,7 @@ import * as http from 'http';
 import * as fs from 'fs';
 import * as url from 'url';
 import * as path from 'path';
-import { connectToDatabase, saveDataToDatabase } from './databaseConnector.js';
+import { loadScenesDataAsync, saveSceneDataAsync } from './routes/sceneRoutes.js';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,15 +24,16 @@ const server = http.createServer(async (req, res) => {
     let pathname = `${__dirname}${parsedUrl.pathname}`;
     let ext = path.parse(pathname).ext;
 
-    if (parsedUrl.pathname === '/connect-to-db') {
+    if (req.method === 'GET' && parsedUrl.pathname === '/load-scenes-data') {
         try {
-            const dbConnections = await connectToDatabase(); //TODO use connections
+            const scenes = await loadScenesDataAsync();
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Connected to database' }));
+            res.end(JSON.stringify(scenes));
         } catch (err) {
-            console.error('Error connecting to the database:', err);
+            console.error('hello world');
+            console.error('Failed to load scenes:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Failed to connect to database' }));
+            res.end(JSON.stringify({ error: 'Failed to load scenes' }));
         }
         return;
     }
@@ -40,7 +41,6 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'POST' && parsedUrl.pathname === '/save-scene-data') {
         let body = '';
 
-        // Collect the data from the request
         req.on('data', chunk => {
             body += chunk.toString();
         });
@@ -48,10 +48,7 @@ const server = http.createServer(async (req, res) => {
         req.on('end', async () => {
             try {
                 const data = JSON.parse(body);
-                console.log('Received data:', data);
-
-                await saveDataToDatabase(data); //TODO use connections
-
+                await saveSceneDataAsync(data);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Data saved successfully' }));
             } catch (error) {
@@ -60,7 +57,6 @@ const server = http.createServer(async (req, res) => {
                 res.end(JSON.stringify({ message: 'Invalid JSON' }));
             }
         });
-
         return;
     }
 

@@ -1,5 +1,4 @@
 import { Transform } from "./transform.js";
-import { generateUUID } from "./uuidUtils.js";
 
 export class GameObjectData {
     private name: string;

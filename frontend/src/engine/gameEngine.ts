@@ -1,17 +1,14 @@
-import { Scene } from "./scene.js";
-import { ServiceFactory } from "./services/serviceFactory.js";
+import { Resolver } from "./resolver.js";
+import { SceneService } from "./services/sceneService.js";
 
 export class GameEngine {
     private static instance: GameEngine;
     private gameRunning: boolean = false;
-    private gameloop: NodeJS.Timeout | null = null;
-    private activeScene: Scene | null = null;
+    private gameloop: NodeJS.Timeout | undefined = undefined;
     private lastUpdateTime: Date;
 
-    // Private constructor to prevent direct instantiation
     private constructor() {
         this.lastUpdateTime = new Date();
-        ServiceFactory.constructServices();
     }
     
     public static getInstance(): GameEngine {
@@ -21,17 +18,12 @@ export class GameEngine {
         return GameEngine.instance;
     }
 
-    public static get ActiveScene(): Scene | null {
-        return GameEngine.getInstance().activeScene;
-    }
-
-    public startGame(scene: Scene): void {
+    public startGame(): void {
         if (this.gameRunning) {
             console.log('Game already running');
             return;
         }
 
-        this.activeScene = scene;
         console.log('Game started');
         this.startLoopInterval();
     }
@@ -50,8 +42,14 @@ export class GameEngine {
     }
 
     public resetGame(): void {
-        this.activeScene = null;
         this.stopGame();
+        const scene = Resolver.resolve(SceneService).Scene;
+        if (scene)
+        {
+            const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+            const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            scene.CanvasRenderer = ctx;
+        }
     }
 
     public resumeGame(): void {
@@ -59,8 +57,9 @@ export class GameEngine {
             console.log('Game already running');
             return;
         }
-
-        if (!this.activeScene) {
+        
+        const scene = Resolver.resolve(SceneService).Scene;
+        if (!scene) {
             console.log('No active scene to resume');
             return;
         }
@@ -73,12 +72,13 @@ export class GameEngine {
         const FPS = 60;
         const msPerFrame = 1000 / FPS;
         this.lastUpdateTime = new Date();
+        const scene = Resolver.resolve(SceneService).Scene;
         this.gameloop = setInterval(() => {
-            if (this.activeScene) {
+            if (scene) {
                 const now = new Date();
                 const deltaTime = now.getTime() - this.lastUpdateTime.getTime();
                 const deltaTimeInSeconds = deltaTime / 1000;
-                this.activeScene.update(deltaTimeInSeconds);
+                scene.update(deltaTimeInSeconds);
                 this.lastUpdateTime = now;
             }
         }, msPerFrame);

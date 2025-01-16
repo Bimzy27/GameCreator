@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <p>Make games here!!</p>
+    <div>
+        <p id="sceneIdLbl">id goes here..</p>
+        <div class="horizontal-container">
+            <p>Name: </p>
+            <input type="text" id="sceneNameInput" placeholder="Scene name..">
+        </div>
+    </div>
     <canvas id="gameCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
     <div style="display: flex; flex-direction: column;">
         <div>
@@ -12,8 +18,9 @@
             <button id="stopGameBtn">Stop</button>
             <button id="resumeGameBtn">Resume</button>
             <button id="saveGameBtn">Save</button>
+            <button id="closeGameBtn">Close</button>
         </div>
     </div>
-    <script type="module" src="../views/createGamePageView.js"></script>
+    <script type="module" src="../views/gameEditorPageView.js"></script>
 </body>
 </html>

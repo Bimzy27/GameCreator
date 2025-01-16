@@ -1,16 +1,17 @@
-import { EventHandler } from "../eventHandler.js";
+import { Resolver } from "../engine/resolver.js";
+import { engineEvent, EventService } from "../engine/services/eventService.js";
 
 const pages: { [key: string]: string } = {
     loginPage: 'pages/loginPage.html',
     homeLink: 'pages/homePage.html',
-    createLink: 'pages/createGamePage.html',
+    createLink: 'pages/gameEditorPage.html',
     viewLink: 'pages/ViewGamesPage.html'
 };
 
 const links = document.querySelectorAll('.topnav a');
 links.forEach(link => {
     link.addEventListener('click', function() {
-        EventHandler.getInstance().publish('activePageChanged', link.id);
+        Resolver.resolve(EventService).publish(engineEvent.ActivePageChanged, link.id);
     });
 });
 
@@ -33,7 +34,7 @@ function setActivePageView(activePage: string)
                     }
                 });
 
-                EventHandler.getInstance().publish('activePageChangedComplete', 'activePage');
+                Resolver.resolve(EventService).publish(engineEvent.ActivePageChangedCompleted, activePage);
             } else {
                 console.error('activePageContainer element not found');
             }
@@ -41,9 +42,9 @@ function setActivePageView(activePage: string)
         .catch(error => console.error('Error loading home page:', error));
 }
 
-EventHandler.getInstance().subscribe('activePageChanged', (activePage: string) => {
+Resolver.resolve(EventService).subscribe(engineEvent.ActivePageChanged, (activePage: string) => {
     setActivePageView(activePage);
 });
 
-EventHandler.getInstance().publish('activePageChanged', 'loginPage');
+Resolver.resolve(EventService).publish(engineEvent.ActivePageChanged, 'loginPage');
 

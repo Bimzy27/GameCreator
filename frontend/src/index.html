@@ -2,28 +2,15 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
-    <!-- <script type="module" src="resolver.js"></script> -->
-     <script>
-        import { EventHandler } from "./state/eventHandler.js";
-        console.log('Resolver loaded');
-        export function getEventHandler() {
-            return EventHandler.getInstance();
-        }
-     </script>
 </head>
 <body>
     <div class="topnav">
         <a id="homeLink">Home</a>
-        <a id="createLink">Create</a>
         <a id="viewLink">View</a>
     </div>
     <h1>Game Creator</h1>
     <div id="content" style="display: flex; flex-direction: column; align-items: stretch;">
         <div id="activePageContainer" style="width:100%; height:1000px;"></div>
-        <!-- <iframe id="loginPage" src="pages/loginPage.html" style="width:100%; height:1000px; border:none; display:none;"></iframe>
-        <iframe id="homePage" src="pages/homePage.html" style="width:100%; height:1000px; border:none; display:none;"></iframe>
-        <iframe id="createGamePage" src="pages/createGamePage.html" style="width:100%; height:1000px; border:none; display:none;"></iframe>
-        <iframe id="viewGamesPage" src="pages/viewGamesPage.html" style="width:100%; height:1000px; border:none; display:none;"></iframe> -->
     </div>
     <script type="module" src="views/indexView.js"></script>
 </body>

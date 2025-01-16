@@ -1,22 +1,8 @@
-import { EventHandler } from "../eventHandler.js";
-
-async function connectToDatabaseViaBackend() {
-    try {
-        console.log('Connecting to database...');
-        const response = await fetch('/connect-to-db');
-        if (!response.ok) {
-            throw new Error('Failed to connect to database');
-        }
-        const dbConnections = await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+import { Resolver } from "../engine/resolver.js";
+import { engineEvent, EventService } from "../engine/services/eventService.js";
 
 const statusLbl = document.getElementById('statusLbl');
 if (statusLbl) {
-    statusLbl.textContent = 'Connecting to DB...';
-    await connectToDatabaseViaBackend();
-    statusLbl.textContent = 'Connected to DB';
-    EventHandler.getInstance().publish('activePageChanged', 'createLink');
+    statusLbl.textContent = 'TODO Implement Login';
+    Resolver.resolve(EventService).publish(engineEvent.ActivePageChanged, 'homeLink');
 }
