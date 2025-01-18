@@ -1,9 +1,11 @@
 import { ApiService } from "../../apiService.js";
 import { GameObjectData } from "../gameObjectData.js";
+import { Resolver } from "../resolver.js";
 import { Scene } from "../scene.js";
 import { SceneData } from "../sceneData.js";
 import { Transform } from "../transform.js";
 import { Vector2 } from "../vector2.js";
+import { engineEvent, EventService } from "./eventService.js";
 
 export class SceneService {
 
@@ -33,5 +35,12 @@ export class SceneService {
 
     public get Scene(): Scene | undefined {
         return this.scene;
+    }
+
+    public addGameObject(gameObjectData: GameObjectData)
+    {
+        this.Scene?.Data.GameObjectDatas.push(gameObjectData);
+        this.Scene?.refresh();
+        Resolver.resolve(EventService).publish(engineEvent.GameObjectsChanged);
     }
 }

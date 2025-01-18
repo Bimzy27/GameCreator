@@ -8,7 +8,18 @@
             <input type="text" id="sceneNameInput" placeholder="Scene name..">
         </div>
     </div>
-    <canvas id="gameCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+    <div class="horizontal-container">
+        <canvas id="gameCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+        <div>
+            <p>Game Objects:</p>
+            <button id="addGameObjectBtn">Add</button>
+            <ul id="gameObjectList">
+            </ul>
+        </div>
+        <div>
+            <input type="text" id="selectedGONameInput" placeholder="Game object name..">
+        </div>
+    </div>
     <div style="display: flex; flex-direction: column;">
         <div>
             <p id="playStatusLbl">Not started..</p>

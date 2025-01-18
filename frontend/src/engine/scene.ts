@@ -9,13 +9,18 @@ export class Scene {
 
     constructor(data: SceneData) {
         this.data = data;
-        this.gameObjects = data.GameObjectDatas.map((data) => new GameObject(data));
+        this.refresh();
     }
 
     public get Data(): SceneData {
         /* const gameObjectDatas = this.gameObjects.map((gameObject) => gameObject.Data);
         this.data = new SceneData(this.data.Name, this.data.Size, gameObjectDatas); */
         return this.data;
+    }
+
+    public refresh()
+    {
+        this.gameObjects = this.data.GameObjectDatas.map((data) => new GameObject(data));
     }
 
     public update(deltaTime: number): void {
@@ -26,7 +31,7 @@ export class Scene {
         this.render();
     }
 
-    private render(): void {
+    public render(): void {
         if (!this.canvasRenderer)
         {
             console.error("canvasRenderer is undefined");

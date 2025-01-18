@@ -15,7 +15,7 @@ export async function saveSceneDataAsync(data: object): Promise<void>
           const filter = { _id: new ObjectId(id) };
           const update = { $set: data };
           const result = await collection.updateOne(filter, update);
-          console.log(`Data updated with _id: ${result.upsertedId}`);
+          console.log(`Data updated with _id: ${filter._id}`);
         }
         else
         {

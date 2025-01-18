@@ -1,4 +1,5 @@
 import { Resolver } from "./resolver.js";
+import { engineEvent, EventService } from "./services/eventService.js";
 import { SceneService } from "./services/sceneService.js";
 
 export class GameEngine {
@@ -46,9 +47,11 @@ export class GameEngine {
         const scene = Resolver.resolve(SceneService).Scene;
         if (scene)
         {
+            Resolver.resolve(EventService).publish(engineEvent.GameObjectsChanged);
             const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
             const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
             scene.CanvasRenderer = ctx;
+            scene.render();
         }
     }
 

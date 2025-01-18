@@ -4,6 +4,7 @@ export enum engineEvent{
     SceneLoaded,
     ActivePageChanged,
     ActivePageChangedCompleted,
+    GameObjectsChanged,
 }
 
 export class EventService {
@@ -30,7 +31,7 @@ export class EventService {
         this.events[event] = this.events[event].filter(cb => cb !== callback);
     }
 
-    public publish(event: engineEvent, data: any) {
+    public publish(event: engineEvent, data?: any) {
         if (!this.events[event]) return;
 
         this.events[event].forEach(callback => callback(data));
